@@ -1,764 +1,367 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HighLevel CSS generator</title>
-<style>
-  body {
-    margin: 0;
-    padding: 50px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .container {
-    display: flex;
-    overflow: hidden;
-  }
-
-  .left {
-    flex: 1;
-    padding: 20px;
-    border: 1px solid #7c7c7c;
-    border-bottom: none;
-    border-right: none;
-    border-top-left-radius: 10px;
-  }
-
-  .right {
-    flex: 2;
-    display: flex;
-    padding: 20px;
-    flex-direction: column;
-    border: 1px solid #7c7c7c;
-    border-bottom: none;
-    border-left: none;
-    border-top-right-radius: 10px;
-  }
-
-  .bottom {
-    display: flex;
-    padding: 20px;
-    border: 1px solid #7c7c7c;
-    border-top: none;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-
-  .bottom > div {
-    flex: 1;
-    padding: 20px;
-  }
-
-  #css-code {
-    width: 75vw;
-  }
-
-  #header-sidebar {
-        display: flex;
-        height: fit-content;
-        max-height: 480px;
-        min-height: 200px;
-        margin-bottom: 10px;
-        border: 1px solid #7c7c7c;
-        border-radius: 10px;
-        padding: 10px;
-        width: 100%;
-    }
-
-    nav {
-        display: flex;
-        flex-direction: column;
-    }
-
-    nav a:hover {
-        background: #353535;
-    }
-
-    .location-switcher-sidebar-v2 {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin: 10px;
-        padding: 10px;
-        padding-bottom: 5px;
-        color: aliceblue;
-        border-radius: 8px;
-        background-color: #4D5562;
-    }
-
-    .topmenu-nav {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .topmenu-nav a {
-        text-decoration: none;
-        color: #6C727D;
-    }
-
-    .topmenu-navtitle {
-        color: #6C727D;
-        padding-bottom: 8px;
-    }
-
-    .topmenu-nav a.active {
-        border-bottom: 3px solid #000; /* Zwart als voorbeeldkleur */
-        padding-bottom: 5px; /* Voegt wat ruimte toe tussen de tekst en de onderste rand */
-    }
-
-    .topmenu-nav a {
-        border-bottom: 3px solid transparent; /* Zorgt ervoor dat de onderste rand niet zichtbaar is */
-        padding-bottom: 5px; /* Voegt wat ruimte toe tussen de tekst en de onderste rand */
-    }
-
-    .page-content {
-        padding: 20px;
-    }
-
-    /* Sidebar */
-    .sidebar-v2-agency {
-        display: flex;
-        text-decoration: none;
-    }
-
-    #sidebar-v2 {
-        position: relative;
-        background: #2F3747;
-        /* background: linear-gradient(141deg, #000000 0%, #0b307e 100%); */
-    }
-
-    #sidebar-v2 img {
-        padding: 10px;
-        height: 40px;
-        max-width: 80%;
-    }
-
-    #sidebar-v2 .logo-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        width: 100%;
-    }
-
-    .nav-title {
-        padding: 10px;
-        padding-bottom: 5px;
-        display: inline-block;
-        color: #6C727D;
-    }
-
-    .container-fluid {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 15px 0 15px;
-        width: 100%;
-    }
-
-    .hl_header {
-        width: 100%;
-        min-width: 500px;
-        display: flex;
-        background: #FFFFFF;
-    }
-
-    .hl_header--controls {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-    }
-
-    .hl_header--controls a {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-    }
-
-    .avatar {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: transparent;
-    }
-
-    .avatar_img img{
-        max-width: 32px;
-        max-height: 32px;
-        border-radius: 50%;
-        overflow: hidden;
-    }
-
-    .hl_wrapper {
-        height: calc(100% - 46px);
-        background: #F3F7FA;
-    }
-
-    #login-page {
-        height: fit-content;
-        min-height: 200px;
-        max-height: 817px;
-        margin-bottom: 10px;
-        border: 1px solid #7c7c7c;
-        border-radius: 10px;
-        padding: 10px;
-        box-sizing: border-box;
-        background: #FFFFFF;
-    }
-
-    .login-page-settings {
-        margin-top: 175px;
-    }
-
-    .hl_login {
-        background: #F3F7FA;
-        width: 100%;
-    }
-
-    .hl_login--header {
-        background: #FFFFFF;
-        margin-bottom: 80px;
-    }
-
-    .hl_login--header img {
-        max-height: 75px;
-    }
-
-    .hl_login--body {
-        padding: 0 15px;
-        margin-bottom: 20px;
-    }
-
-    .hl_login--body .card {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        max-width: 550px;
-        margin: 0 auto;
-        box-shadow: 15px 26px 40px 0 rgba(0, 0, 0, 0.05);
-        background: #FFFFFF;
-        border-radius: 0.3125rem;
-    }
-
-    .hl_login--body .card-body {
-        max-width: 430px;
-        width: 100%;
-        margin: 0 auto;
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-
-    .hl_login--body .login-card-heading {
-        text-align: center;
-        margin-bottom: 50px;
-        font-size: 22px;
-    }
-
-    .form-group {
-        margin-bottom: 1.25rem;
-        box-sizing: unset;
-    }
-
-    .form-group .hl-text-input-container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .hl-text-input-label {
-        margin-bottom: 0.25rem;
-    }
-
-    .hl-text-input-container input {
-        width: 100%;
-        color: rgb(29, 41, 57);
-        border-color: rgb(209, 213, 219);
-        border-radius: 0.25rem;
-        appearance: none;
-        border-width: 1px;
-        padding: 0.5rem 0.75rem;
-    }
-
-    .forgot-password {
-        display: block;
-        font-size: .75rem;
-        text-align: right;
-        margin-top: 5px;
-        text-decoration: none;
-        color: #188bf6;
-    }
-
-    .foot-note a {
-        color: #188bf6;
-        text-decoration: none;
-    }
-
-    .button-holder {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-        margin-bottom: 1.25rem;
-    }
-
-    .hl-btn {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        color: white;
-        font-weight: 500;
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        border-width: 1px;
-        background-color: #55A0D8;
-        border-color: transparent;
-        padding: 0.5rem 1.5rem 0.5rem 1.5rem;
-        border-radius: 0.3125rem;
-        cursor: pointer;
-    }
-
-    .hl-btn:hover {
-        background-color: #4C90C2;
-    }
-
-    .mt-6 {
-        margin-top: 1.5rem;
-    }
-
-    .mt-6 span {
-        display: block;
-        text-align: center;
-        color: #687084;
-    }
-
-    .mt-3 {
-        border-radius: 0.3125rem;
-        border: 1px solid #D5D8DD;
-    }
-
-    .mt-3 img {
-        width: 200px;
-    }
-
-    /* Verberg de standaard radio button */
-    .custom-radio-button input {
-    visibility: hidden;
-    position: absolute;
-    }
-
-    /* Creëer een custom cirkel */
-    .custom-radio-button .checkmark {
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 1rem;
-    width: 1rem;
-    background-color: #eee;
-    border-radius: 50%;
-    display: inline-block;
-    }
-
-    /* Wanneer de radio button is geselecteerd, verander de achtergrond en voeg een witte cirkel toe */
-    .custom-radio-button input:checked + .checkmark {
-    background-color: #4C90C2; /* Verander deze kleur naar wat je wilt */
-    }
-
-    .custom-radio-button input:checked + .checkmark:after {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: white;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    }
-
-    #loading-page {
-        display: flex;
-        height: fit-content;
-        max-height: 422px;
-        align-items: center;
-        min-height: 400px;
-        margin-bottom: 10px;
-        border: 1px solid #7c7c7c;
-        border-radius: 10px;
-        padding: 10px;
-    }
-
-    .loading-page-settings {
-        margin-top: 470px;
-    }
-
-    .hl-loader-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        justify-items: center;
-        background: #F3F7FA;
-        width: 100%;
-        height: 100%;
-    }
-
-    .lds-ring {
-        display: inline-block;
-        position: relative;
-        width: 70px;
-        height: 70px;
-    }
-
-    .lds-ring div:nth-child(1) {
-        animation-delay: -0.45s;
-    }
-    .lds-ring div:nth-child(2) {
-        animation-delay: -0.3s;
-    }
-    .lds-ring div:nth-child(3) {
-        animation-delay: -0.15s;
-    }
-
-    .lds-ring div {
-        box-sizing: border-box;
-        display: block;
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        margin: 8px;
-        border: 8px solid #55A0D8;
-        border-radius: 50%;
-        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: #55A0D8 transparent transparent transparent;
-    }
-
-    .hl-loader-info {
-        margin-top: 10px;
-        text-align: center;
-        color: #607179 !important;
-        font-weight: 400;
-        font-size: 0.875rem;
-    }
-
-    @keyframes lds-ring {
-        0% {
-        transform: rotate(0deg);
-        }
-        100% {
-        transform: rotate(360deg);
-        }
-    }
-
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script>
-    let lines = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-    document.addEventListener('DOMContentloaded', function() {
-        document.getElementById('css-code').value = lines.join('\n');
-    });
-
-    // Function to update textareas with the CSS code
-    function updateCSS(text, index) {
-        if (index < 0 || index >= lines.length) {
-            return;
-        }
-
-        lines[index] = text;
-
-        document.getElementById('css-code').value = lines.join('\n');
-    }
-
-
-    // Header funtions
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker1 = document.getElementById('header-bg-1');
-        var colorPicker2 = document.getElementById('header-bg-2');
-        var directionPicker = document.getElementById('header-bg-direction');
-        var header = document.querySelector('.hl_header.--agency');
-
-        function updateHeaderBackground() {
-            if (directionPicker.value === 'none') {
-                header.style.background = colorPicker1.value;
-                updateCSS(
-`.sidebar-v2-agency .hl_header.--agency { background: ${colorPicker1.value}; }
-.sidebar-v2-location .hl_header { background: ${colorPicker1.value}; }`, 0);
-            } else {
-                header.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
-                updateCSS(
-`.sidebar-v2-agency .hl_header.--agency { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }
-.sidebar-v2-location .hl_header { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 0);
-            }
-        }
-
-        colorPicker1.addEventListener('input', updateHeaderBackground);
-        colorPicker2.addEventListener('input', updateHeaderBackground);
-        directionPicker.addEventListener('input', updateHeaderBackground);
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('header-font-color');
-        var navTitles = document.getElementsByClassName('topmenu-navtitle');
-        var navLinks = document.querySelectorAll('.topmenu-nav a span');
-
-        colorPicker.addEventListener('input', function() {
-            // Pas kleur toe op de .topmenu-navtitle
-            for (var i = 0; i < navTitles.length; i++) {
-                navTitles[i].style.color = colorPicker.value;
-            }
-
-            // Pas kleur toe op alle <span> elementen binnen .topmenu-nav
-            navLinks.forEach(function(navLink) {
-                navLink.style.color = colorPicker.value;
-            });
-
-            updateCSS(
-`.topmenu-navtitle { color: ${colorPicker.value} !important; }
-.topmenu-nav span { color: ${colorPicker.value} !important; }`, 1);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('header-line-color');
-        var border = document.querySelector('.topmenu-nav a.active');
-
-        colorPicker.addEventListener('input', function() {
-            border.style.borderColor = colorPicker.value;
-
-            updateCSS(
-`.topmenu-navitem.active { border-color: ${colorPicker.value} !important; }`, 2);
-        });
-    })
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('avatar-bg-color');
-        var avatar = document.querySelector('.avatar');
-
-        colorPicker.addEventListener('input', function() {
-            avatar.style.background = colorPicker.value;
-
-            updateCSS(
-`.avatar { background: ${colorPicker.value}; }`, 3);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var resetButton = document.getElementById('reset-header');
-        var header = document.querySelector('.hl_header.--agency');
-        var navTitles = document.getElementsByClassName('topmenu-navtitle');
-        var navLinks = document.querySelectorAll('.topmenu-nav a span');
-
-        resetButton.addEventListener('click', function() {
-            header.style.background = '#FFFFFF';
-            for (var i = 0; i < navTitles.length; i++) {
-                navTitles[i].style.color = '#6C727D';
-            }
-            navLinks.forEach(function(navLink) {
-                navLink.style.color = '#6C727D';
-            });
-
-            for (var i = 0; i < 3; i++) {
-                lines[i] = '';
-            }
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Basic page lay-out */
+    .container { display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px; border: 1px solid black; border-radius: 10px; }
+    .row { display: flex; align-items: stretch; justify-content: flex-start; width: 100%; }
+    .row .column:nth-child(1) { flex: 0 0 30%; }
+    .row .column:nth-child(2) { flex: 1; }
+    .column { padding: 10px 10px 10px 10px; }
+    .column:nth-child(1) { flex: 0 0 150px; margin-top: 15px; }
+    .column:nth-child(2) { flex: 1; max-width: 100%; }
+    .column > div { max-width: 100%; }
+    .example { display: flex; width: 100%; height: fit-content; padding: 10px; border: 1px solid black; border-radius: 10px; box-sizing: border-box; }
+    .full-width { flex-basis: 100%; padding: 10px; margin-top: 20px; }
+    .form { display: grid; grid-template-columns: max-content auto; gap: 10px; align-items: center; width: max-content; }
+    input[type="text"] { width: 100%; padding: 8px; margin: 2px 0; border: 1px solid black; }
+    label { text-align: left; margin: 2px 0; white-space: nowrap; }
+    #css-code { width: 75vw; }
+    .formbutton { width: 100px; }
+    select { width: 120px; }
+    input[type="file"] { display: none; }
+    </style>
+    <style>
+        /* Main page lay-out */
+        nav { display: flex; flex-direction: column; }
+        nav a:hover { background: #353535; }
+        .location-switcher-sidebar-v2 { display: flex; align-items: center; gap: 5px; margin: 10px; padding: 10px; padding-bottom: 5px; color: aliceblue; border-radius: 8px; background-color: #4D5562; }
+        .topmenu-nav { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .topmenu-nav a { text-decoration: none; color: #6C727D; }
+        .topmenu-navtitle { color: #6C727D; padding-bottom: 8px; }
+        .topmenu-nav a.active { border-bottom: 3px solid #000; padding-bottom: 5px; }
+        .topmenu-nav a { border-bottom: 3px solid transparent; padding-bottom: 5px; }
+        .page-content { padding: 20px; }
+        .sidebar-v2-agency { display: flex; text-decoration: none; }
+        #sidebar-v2 { position: relative; background: #2F3747; }
+        #sidebar-v2 img { padding: 10px; height: 40px; max-width: 80%; }
+        #sidebar-v2 .logo-container { display: flex; justify-content: center; align-items: center; text-align: center; width: 100%; }
+        .nav-title { padding: 10px; padding-bottom: 5px; display: inline-block; color: #6C727D; }
+        .container-fluid { display: flex; justify-content: space-between; padding: 5px 15px 0 15px; width: 100%; }
+        .hl_header { width: 100%; min-width: 500px; display: flex; background: #FFFFFF; }
+        .hl_header--controls { display: flex; justify-content: flex-end; gap: 10px; }
+        .hl_header--controls a { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background-color: #4CAF50; color: white; text-decoration: none; }
+        .avatar { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background-color: transparent; }
+        .avatar_img img { max-width: 32px; max-height: 32px; border-radius: 50%; overflow: hidden; }
+        .hl_wrapper { height: calc(100% - 46px); background: #F3F7FA; }
+
+    </style>
+    <style>
+        /* login page */
+        .login-page-settings { margin-top: 175px; }
+        .hl_login { background: #F3F7FA; width: 100%; }
+        .hl_login--header { background: #FFFFFF; margin-bottom: 80px; }
+        .hl_login--header img { max-height: 75px; }
+        .hl_login--body { padding: 0 15px; margin-bottom: 20px; }
+        .hl_login--body .card { width: 100%; display: flex; flex-direction: column; max-width: 550px; margin: 0 auto; box-shadow: 15px 26px 40px 0 rgba(0, 0, 0, 0.05); background: #FFFFFF; border-radius: 0.3125rem; }
+        .hl_login--body .card-body { max-width: 430px; width: 100%; margin: 0 auto; padding-top: 50px; padding-bottom: 50px; }
+        .hl_login--body .login-card-heading { text-align: center; margin-bottom: 50px; font-size: 22px; }
+        .form-group { margin-bottom: 1.25rem; box-sizing: unset; }
+        .form-group .hl-text-input-container { position: relative; display: flex; flex-direction: column; }
+        .hl-text-input-label { margin-bottom: 0.25rem; }
+        .hl-text-input-container input { width: 100%; color: rgb(29, 41, 57); border-color: rgb(209, 213, 219); border-radius: 0.25rem; appearance: none; border-width: 1px; padding: 0.5rem 0.75rem; }
+        .forgot-password { display: block; font-size: .75rem; text-align: right; margin-top: 5px; text-decoration: none; color: #188bf6; }
+        .foot-note { text-align: center; }
+        .foot-note a { color: #188bf6; text-decoration: none; }
+        .button-holder { display: flex; justify-content: center; margin-top: 20px; margin-bottom: 1.25rem; }
+        .hl-btn { display: inline-flex; justify-content: center; align-items: center; width: 100%; color: white; font-weight: 500; font-size: 0.875rem; line-height: 1.25rem; border-width: 1px; background-color: #55A0D8; border-color: transparent; padding: 0.5rem 1.5rem 0.5rem 1.5rem; border-radius: 0.3125rem; cursor: pointer; }
+        .hl-btn:hover { background-color: #4C90C2; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-6 span { display: block; text-align: center; color: #687084; }
+        .mt-3 { border-radius: 0.3125rem; border: 1px solid #D5D8DD; }
+        .mt-3 img { width: 200px; }
+        .custom-radio-button input { visibility: hidden; position: absolute; }
+        .custom-radio-button .checkmark { position: relative; top: 0; left: 0; height: 1rem; width: 1rem; background-color: #eee; border-radius: 50%; display: inline-block; }
+        .custom-radio-button input:checked + .checkmark { background-color: #4C90C2; }
+        .custom-radio-button input:checked + .checkmark:after { content: ""; position: absolute; display: block; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: white; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    </style>
+    <style>
+        .loading-page-settings { margin-top: 470px; }
+        .hl-loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; justify-items: center; background: #F3F7FA; width: 100%; height: 100%; }
+        .lds-ring { display: inline-block; position: relative; width: 70px; height: 70px; }
+        .lds-ring div:nth-child(1) { animation-delay: -0.45s; }
+        .lds-ring div:nth-child(2) { animation-delay: -0.3s; }
+        .lds-ring div:nth-child(3) { animation-delay: -0.15s; }
+        .lds-ring div { box-sizing: border-box; display: block; position: absolute; width: 60px; height: 60px; margin: 8px; border: 8px solid #55A0D8; border-radius: 50%; animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; border-color: #55A0D8 transparent transparent transparent; }
+        .hl-loader-info { margin-top: 10px; text-align: center; color: #607179 !important; font-weight: 400; font-size: 0.875rem; }
+        @keyframes lds-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        let lines = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+        document.addEventListener('DOMContentloaded', function() {
             document.getElementById('css-code').value = lines.join('\n');
-        });
-    })
-
-    // Sidebar functions
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker1 = document.getElementById('sidebar-bg-1');
-        var colorPicker2 = document.getElementById('sidebar-bg-2');
-        var directionPicker = document.getElementById('sidebar-bg-direction');
-        var sidebar = document.getElementById('sidebar-v2');
-
-        function updateSidebarBackground() {
-            if (directionPicker.value === 'none') {
-                sidebar.style.background = colorPicker1.value;
-
-                updateCSS(
-`.sidebar-v2-agency #sidebar-v2.default-bg-color { background: ${colorPicker1.value}; }
-.sidebar-v2-location #sidebar-v2.default-bg-color { background: ${colorPicker1.value}; }`, 4);
-            } else {
-                sidebar.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
-
-                updateCSS(
-`.sidebar-v2-agency #sidebar-v2.default-bg-color { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }
-.sidebar-v2-location #sidebar-v2.default-bg-color { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 4);
-            }
-        }
-
-        colorPicker1.addEventListener('input', updateSidebarBackground);
-        colorPicker2.addEventListener('input', updateSidebarBackground);
-        directionPicker.addEventListener('input', updateSidebarBackground);
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('sidebar-font-color');
-        var navTitles = document.getElementsByClassName('nav-title');
-
-        colorPicker.addEventListener('input', function() {
-            // Pas kleur toe op de .nav-title
-            for (var i = 0; i < navTitles.length; i++) {
-                navTitles[i].style.color = colorPicker.value;
-            }
-
-            updateCSS(
-`.sidebar-v2-agency #sidebar-v2 .hl_nav-header-without-footer nav a .nav-title { color: ${colorPicker.value} !important; }
-.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a .nav-title { color: ${colorPicker.value} !important; }`, 5);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var resetButton = document.getElementById('reset-sidebar');
-        var sidebar = document.getElementById('sidebar-v2');
-        var navTitles = document.getElementsByClassName('nav-title');
-
-        resetButton.addEventListener('click', function() {
-            sidebar.style.background = '#2F3747';
-            for (var i = 0; i < navTitles.length; i++) {
-                navTitles[i].style.color = '#6C727D';
-            }
-
-            for (var i = 4; i < 5; i++) {
-                lines[i] = '';
-            }
-
-            document.getElementById('css-code').value = lines.join('\n');
-        });
-    })
-
-    // Logo loader function
-    document.addEventListener('DOMContentLoaded', function() {
-        var logoInput = document.getElementById('logo-input');
-        var companyLogo = document.getElementById('company-logo');
-        var avatar = document.getElementById('user-avatar');
-
-        logoInput.addEventListener('change', function() {
-            var file = logoInput.files[0];
-            var reader = new FileReader();
-
-            reader.onloadend = function() {
-                companyLogo.src = reader.result;
-                avatar.src = reader.result;
-            }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            } else {
-                return;
-            }
         });
     
-    })
-
-    // Copy CSS code to clipboard
-    document.addEventListener('DOMContentLoaded', function() {
-        var copyButton = document.getElementById('copy-code');
-        var cssCode = document.getElementById('css-code');
-
-        copyButton.addEventListener('click', function() {
-            cssCode.select();
-            document.execCommand('copy');
-        });
-
-        // Show a little message when the code is copied in a alert box
-        cssCode.addEventListener('copy', function() {
-            alert('CSS code copied to clipboard');
-        });
-        
-    });
-
-    // Login page settings
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker1 = document.getElementById('login-bg-1');
-        var colorPicker2 = document.getElementById('login-bg-2');
-        var directionPicker = document.getElementById('login-bg-direction');
-        var loginPage = document.getElementsByClassName('hl_login')[0];
-
-        function updateLoginPageBackground() {
-            if (directionPicker.value === 'none') {
-                loginPage.style.background = colorPicker1.value;
-
-                updateCSS(
-`.hl_login { background: ${colorPicker1.value}; }`, 6);
-            } else {
-                loginPage.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
-
-                updateCSS(
-`.hl_login { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 6);
-
+        // Function to update textareas with the CSS code
+        function updateCSS(text, index) {
+            if (index < 0 || index >= lines.length) {
+                return;
             }
+    
+            lines[index] = text;
+    
+            document.getElementById('css-code').value = lines.join('\n');
         }
-
-        colorPicker1.addEventListener('input', updateLoginPageBackground);
-        colorPicker2.addEventListener('input', updateLoginPageBackground);
-        directionPicker.addEventListener('input', updateLoginPageBackground);
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var placementPicker = document.getElementById('login-page-header-placement');
-        var loginPage = document.getElementsByClassName('hl_login')[0];
-        var loginHeader = document.querySelector('.hl_login--header');
-        var loginBody = document.getElementsByClassName('hl_login--body')[0];
-        var loginCard = document.querySelector('.card');
-        var loginCardBody = document.querySelector('.hl_login--body .card-body');
-        var mt6 = document.querySelector('.mt-6');
-        var mt3 = document.querySelector('.mt-3');
-        var formGroups = document.querySelectorAll('.form-group');
-        var input = document.querySelectorAll('.hl-text-input');
-        var heading = document.querySelector('.login-card-heading');
-
-        placementPicker.addEventListener('input', function() {
-            if (placementPicker.value === 'bottom') {
-                mt6.style.display = 'none';
-                mt3.style.display = 'none';
-                loginPage.style.display = 'flex';
-                loginPage.style.flexDirection = 'column';
-                loginPage.style.justifyContent = 'center';
-                loginPage.style.alignItems = 'center';
-                loginPage.style.margin = '0 auto';
-                loginPage.style.padding = '0';
-                loginHeader.style.marginBottom = '20px';
-                loginHeader.style.marginTop = '50px';
-                loginHeader.style.padding = '0';
-                loginHeader.style.borderBottom = '0';
-                loginHeader.style.background = '#fff0';
-                loginBody.style.maxWidth = '450px';
-                loginBody.style.width = '100%';
-                loginBody.style.borderRadius = '20px';
-                loginCard.style.width = '100%';
-                loginCard.style.margin = '0 auto';
-                loginCard.style.padding = '0';
-                loginCardBody.style.width = '100%';
-                loginCardBody.style.maxWidth = '450px';
-                loginCardBody.style.margin = '0';
-                loginCardBody.style.padding = '30px 30px';
-                formGroups.forEach(function(formGroup) {
-                    formGroup.style.width = '390px';
+    
+    
+        // Header funtions
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker1 = document.getElementById('header-bg-1');
+            var colorPicker2 = document.getElementById('header-bg-2');
+            var directionPicker = document.getElementById('header-bg-direction');
+            var header = document.querySelector('.hl_header.--agency');
+    
+            function updateHeaderBackground() {
+                if (directionPicker.value === 'none') {
+                    header.style.background = colorPicker1.value;
+                    updateCSS(
+`.sidebar-v2-agency .hl_header.--agency { background: ${colorPicker1.value}; }
+.sidebar-v2-location .hl_header { background: ${colorPicker1.value}; }`, 0);
+                } else {
+                    header.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
+                    updateCSS(
+`.sidebar-v2-agency .hl_header.--agency { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }
+.sidebar-v2-location .hl_header { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 0);
+                }
+            }
+    
+            colorPicker1.addEventListener('input', updateHeaderBackground);
+            colorPicker2.addEventListener('input', updateHeaderBackground);
+            directionPicker.addEventListener('input', updateHeaderBackground);
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('header-font-color');
+            var navTitles = document.getElementsByClassName('topmenu-navtitle');
+            var navLinks = document.querySelectorAll('.topmenu-nav a span');
+    
+            colorPicker.addEventListener('input', function() {
+                // Pas kleur toe op de .topmenu-navtitle
+                for (var i = 0; i < navTitles.length; i++) {
+                    navTitles[i].style.color = colorPicker.value;
+                }
+    
+                // Pas kleur toe op alle <span> elementen binnen .topmenu-nav
+                navLinks.forEach(function(navLink) {
+                    navLink.style.color = colorPicker.value;
                 });
-                input.forEach(function(input) {
-                    input.style.width = '100%';
-                    input.style.margin = '0';
-                    input.style.boxSizing = 'border-box';
-                });
-                heading.style.textAlign = 'center';
-                heading.style.margin = '0 50px 0 0'
-
+    
                 updateCSS(
+`.topmenu-navtitle { color: ${colorPicker.value} !important; }
+.topmenu-nav span { color: ${colorPicker.value} !important; }`, 1);
+            });
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('header-line-color');
+            var border = document.querySelector('.topmenu-nav a.active');
+    
+            colorPicker.addEventListener('input', function() {
+                border.style.borderColor = colorPicker.value;
+    
+                updateCSS(
+`.topmenu-navitem.active { border-color: ${colorPicker.value} !important; }`, 2);
+            });
+        })
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('avatar-bg-color');
+            var avatar = document.querySelector('.avatar');
+    
+            colorPicker.addEventListener('input', function() {
+                avatar.style.background = colorPicker.value;
+    
+                updateCSS(
+`.avatar { background: ${colorPicker.value}; }`, 3);
+            });
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var resetButton = document.getElementById('reset-header');
+            var header = document.querySelector('.hl_header.--agency');
+            var navTitles = document.getElementsByClassName('topmenu-navtitle');
+            var navLinks = document.querySelectorAll('.topmenu-nav a span');
+    
+            resetButton.addEventListener('click', function() {
+                event.preventDefault();
+                header.style.background = '#FFFFFF';
+                for (var i = 0; i < navTitles.length; i++) {
+                    navTitles[i].style.color = '#6C727D';
+                }
+                navLinks.forEach(function(navLink) {
+                    navLink.style.color = '#6C727D';
+                });
+    
+                for (var i = 0; i < 3; i++) {
+                    lines[i] = '';
+                }
+    
+                document.getElementById('css-code').value = lines.join('\n');
+            });
+        })
+    
+        // Sidebar functions
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker1 = document.getElementById('sidebar-bg-1');
+            var colorPicker2 = document.getElementById('sidebar-bg-2');
+            var directionPicker = document.getElementById('sidebar-bg-direction');
+            var sidebar = document.getElementById('sidebar-v2');
+    
+            function updateSidebarBackground() {
+                if (directionPicker.value === 'none') {
+                    sidebar.style.background = colorPicker1.value;
+    
+                    updateCSS(
+`.sidebar-v2-agency #sidebar-v2.default-bg-color { background: ${colorPicker1.value}; }
+.sidebar-v2-location #sidebar-v2.default-bg-color { background: ${colorPicker1.value}; }`, 4);
+                } else {
+                    sidebar.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
+    
+                    updateCSS(
+`.sidebar-v2-agency #sidebar-v2.default-bg-color { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }
+.sidebar-v2-location #sidebar-v2.default-bg-color { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 4);
+                }
+            }
+    
+            colorPicker1.addEventListener('input', updateSidebarBackground);
+            colorPicker2.addEventListener('input', updateSidebarBackground);
+            directionPicker.addEventListener('input', updateSidebarBackground);
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('sidebar-font-color');
+            var navTitles = document.getElementsByClassName('nav-title');
+    
+            colorPicker.addEventListener('input', function() {
+                // Pas kleur toe op de .nav-title
+                for (var i = 0; i < navTitles.length; i++) {
+                    navTitles[i].style.color = colorPicker.value;
+                }
+    
+                updateCSS(
+`.sidebar-v2-agency #sidebar-v2 .hl_nav-header-without-footer nav a .nav-title { color: ${colorPicker.value} !important; }
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a .nav-title { color: ${colorPicker.value} !important; }`, 5);
+            });
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var resetButton = document.getElementById('reset-sidebar');
+            var sidebar = document.getElementById('sidebar-v2');
+            var navTitles = document.getElementsByClassName('nav-title');
+    
+            resetButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                sidebar.style.background = '#2F3747';
+                for (var i = 0; i < navTitles.length; i++) {
+                    navTitles[i].style.color = '#6C727D';
+                }
+    
+                for (var i = 4; i < 5; i++) {
+                    lines[i] = '';
+                }
+    
+                document.getElementById('css-code').value = lines.join('\n');
+            });
+        });
+    
+        // Copy CSS code to clipboard
+        document.addEventListener('DOMContentLoaded', function() {
+            var copyButton = document.getElementById('copy-code');
+            var cssCode = document.getElementById('css-code');
+    
+            copyButton.addEventListener('click', function() {
+                cssCode.select();
+                document.execCommand('copy');
+            });
+    
+            // Show a little message when the code is copied in a alert box
+            cssCode.addEventListener('copy', function() {
+                alert('CSS code copied to clipboard');
+            });
+            
+        });
+    
+        // Login page settings
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker1 = document.getElementById('login-bg-1');
+            var colorPicker2 = document.getElementById('login-bg-2');
+            var directionPicker = document.getElementById('login-bg-direction');
+            var loginPage = document.getElementsByClassName('hl_login')[0];
+    
+            function updateLoginPageBackground() {
+                if (directionPicker.value === 'none') {
+                    loginPage.style.background = colorPicker1.value;
+    
+                    updateCSS(
+`.hl_login { background: ${colorPicker1.value}; }`, 6);
+                } else {
+                    loginPage.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
+    
+                    updateCSS(
+`.hl_login { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 6);
+    
+                }
+            }
+    
+            colorPicker1.addEventListener('input', updateLoginPageBackground);
+            colorPicker2.addEventListener('input', updateLoginPageBackground);
+            directionPicker.addEventListener('input', updateLoginPageBackground);
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var placementPicker = document.getElementById('login-page-header-placement');
+            var loginPage = document.getElementsByClassName('hl_login')[0];
+            var loginHeader = document.querySelector('.hl_login--header');
+            var loginBody = document.getElementsByClassName('hl_login--body')[0];
+            var loginCard = document.querySelector('.card');
+            var loginCardBody = document.querySelector('.hl_login--body .card-body');
+            var mt6 = document.querySelector('.mt-6');
+            var mt3 = document.querySelector('.mt-3');
+            var formGroups = document.querySelectorAll('.form-group');
+            var input = document.querySelectorAll('.hl-text-input');
+            var heading = document.querySelector('.login-card-heading');
+    
+            placementPicker.addEventListener('input', function() {
+                if (placementPicker.value === 'bottom') {
+                    mt6.style.display = 'none';
+                    mt3.style.display = 'none';
+                    loginPage.style.display = 'flex';
+                    loginPage.style.flexDirection = 'column';
+                    loginPage.style.justifyContent = 'center';
+                    loginPage.style.alignItems = 'center';
+                    loginPage.style.margin = '0 auto';
+                    loginPage.style.padding = '0';
+                    loginHeader.style.marginBottom = '20px';
+                    loginHeader.style.marginTop = '50px';
+                    loginHeader.style.padding = '0';
+                    loginHeader.style.borderBottom = '0';
+                    loginHeader.style.background = '#fff0';
+                    loginBody.style.maxWidth = '450px';
+                    loginBody.style.width = '100%';
+                    loginBody.style.borderRadius = '20px';
+                    loginCard.style.width = '100%';
+                    loginCard.style.margin = '0 auto';
+                    loginCard.style.padding = '0';
+                    loginCardBody.style.width = '100%';
+                    loginCardBody.style.maxWidth = '450px';
+                    loginCardBody.style.margin = '0';
+                    loginCardBody.style.padding = '30px 30px';
+                    formGroups.forEach(function(formGroup) {
+                        formGroup.style.width = '390px';
+                    });
+                    input.forEach(function(input) {
+                        input.style.width = '100%';
+                        input.style.margin = '0';
+                        input.style.boxSizing = 'border-box';
+                    });
+                    heading.style.textAlign = 'center';
+                    heading.style.margin = '0 50px 0 0'
+    
+                    updateCSS(
 `.hl_login { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; margin: 0 auto !important; padding: 0 !important; margin-top: 0 !important; height: 100vh; }
 .hl_login--header { border-bottom: 0 !important; padding: 0 !important; margin-bottom: 20px !important; background: #fff0 !important; }
 div.hl_login--body { max-width: 450px !important; width: 100% !important; border-radius: 10px !important; box-shadow: 0px 0px 80px rgba(0, 0, 0, 0.08); }
@@ -769,626 +372,616 @@ div.hl_login--body { max-width: 450px !important; width: 100% !important; border
 .hl_login--body .login-card-heading { margin-bottom: 20px !important; text-align: center !important }
 .hl_login--body .heading2 { margin-bottom: 10px !important; font-size: 25px !important; }
 .hl_login .button-holder.form-group { margin: 10px auto !important }`, 7);
-            } else {
-                mt6.style.display = 'block';
-                mt3.style.display = 'block';
-                loginPage.style.display = 'block';
-                loginHeader.style.marginBottom = '80px';
-                loginHeader.style.marginTop = '0';
-                loginHeader.style.padding = '0';
-                loginHeader.style.borderBottom = '0';
-                loginHeader.style.background = 'white';
-                loginBody.style.maxWidth = '550px';
-                loginBody.style.width = '100%';
-                loginBody.style.borderRadius = '0.3125rem';
-                loginBody.style.margin = '0 auto';
-                loginCard.style.width = '100%';
-                loginCard.style.margin = '0 auto';
-                loginCard.style.padding = '0';
-                loginCardBody.style.width = '100%';
-                loginCardBody.style.maxWidth = '430px';
-                loginCardBody.style.margin = '0 auto';
-                loginCardBody.style.padding = '50px 0';
-                formGroups.forEach(function(formGroup) {
-                    formGroup.style.width = '100%';
-                });
-                input.forEach(function(input) {
-                    input.style.width = '100%';
-                    input.style.margin = '0';
-                    input.style.boxSizing = 'border-box';
-                });
-                heading.style.textAlign = 'center';
-                heading.style.margin = '0 50px 0 0'
-
-                updateCSS(
-                    '', 7);
-            }
-
+                } else {
+                    mt6.style.display = 'block';
+                    mt3.style.display = 'block';
+                    loginPage.style.display = 'block';
+                    loginHeader.style.marginBottom = '80px';
+                    loginHeader.style.marginTop = '0';
+                    loginHeader.style.padding = '0';
+                    loginHeader.style.borderBottom = '0';
+                    loginHeader.style.background = 'white';
+                    loginBody.style.maxWidth = '550px';
+                    loginBody.style.width = '100%';
+                    loginBody.style.borderRadius = '0.3125rem';
+                    loginBody.style.margin = '0 auto';
+                    loginCard.style.width = '100%';
+                    loginCard.style.margin = '0 auto';
+                    loginCard.style.padding = '0';
+                    loginCardBody.style.width = '100%';
+                    loginCardBody.style.maxWidth = '430px';
+                    loginCardBody.style.margin = '0 auto';
+                    loginCardBody.style.padding = '50px 0';
+                    formGroups.forEach(function(formGroup) {
+                        formGroup.style.width = '100%';
+                    });
+                    input.forEach(function(input) {
+                        input.style.width = '100%';
+                        input.style.margin = '0';
+                        input.style.boxSizing = 'border-box';
+                    });
+                    heading.style.textAlign = 'center';
+                    heading.style.margin = '0 50px 0 0'
+    
+                    updateCSS(
+                        '', 7);
+                }
+    
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('login-card-header-color');
-        var loginCardHeader = document.querySelector('.login-card-heading');
-
-        colorPicker.addEventListener('input', function() {
-            loginCardHeader.style.color = colorPicker.value;
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('login-card-header-color');
+            var loginCardHeader = document.querySelector('.login-card-heading');
+    
+            colorPicker.addEventListener('input', function() {
+                loginCardHeader.style.color = colorPicker.value;
+    
+                updateCSS(
 `.hl_login--body .login-card-heading { color: ${colorPicker.value} !important; }
 .hl_login--body .heading2 { color ${colorPicker.value} !important }`, 8);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('login-card-text-color');
-        var loginCardText = document.querySelectorAll('.hl-text-input-label');
-        var footerText = document.getElementsByClassName('foot-note')[0];
-
-        colorPicker.addEventListener('input', function() {
-            loginCardText.forEach(function(text) {
-                text.style.color = colorPicker.value;
             });
-            footerText.style.color = colorPicker.value;
-
-            updateCSS(
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('login-card-text-color');
+            var loginCardText = document.querySelectorAll('.hl-text-input-label');
+            var footerText = document.getElementsByClassName('foot-note')[0];
+    
+            colorPicker.addEventListener('input', function() {
+                loginCardText.forEach(function(text) {
+                    text.style.color = colorPicker.value;
+                });
+                footerText.style.color = colorPicker.value;
+    
+                updateCSS(
 `.hl_login--body .card { color: ${colorPicker.value}; }
 div.hl_login--body { color: ${colorPicker.value}; }
 .hl_login .hl-text-input { color: ${colorPicker.value} }
 .hl_login .hl-text-input-label { color: ${colorPicker.value}; }`, 9);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('login-card-link-color');
-        var cardLinks = document.getElementsByClassName('link');
-
-        colorPicker.addEventListener('input', function() {
-            for (var i = 0; i < cardLinks.length; i++) {
-                cardLinks[i].style.color = colorPicker.value;
-            }
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('login-card-link-color');
+            var cardLinks = document.getElementsByClassName('link');
+    
+            colorPicker.addEventListener('input', function() {
+                for (var i = 0; i < cardLinks.length; i++) {
+                    cardLinks[i].style.color = colorPicker.value;
+                }
+    
+                updateCSS(
 `.form-group a { color: ${colorPicker.value}; }
 .foot-note a { color: ${colorPicker.value}; }`, 10);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('login-card-body-color');
-        var loginCardBody = document.querySelector('.card');
-
-        colorPicker.addEventListener('input', function() {
-            loginCardBody.style.background = colorPicker.value;
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('login-card-body-color');
+            var loginCardBody = document.querySelector('.card');
+    
+            colorPicker.addEventListener('input', function() {
+                loginCardBody.style.background = colorPicker.value;
+    
+                updateCSS(
 `.hl_login--body .card { background: ${colorPicker.value} !important; }`, 11);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('login-button-color');
-        var loginButton = document.querySelector('.hl-btn');
-
-        colorPicker.addEventListener('input', function() {
-            loginButton.style.backgroundColor = colorPicker.value;
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('login-button-color');
+            var loginButton = document.querySelector('.hl-btn');
+    
+            colorPicker.addEventListener('input', function() {
+                loginButton.style.backgroundColor = colorPicker.value;
+    
+                updateCSS(
 `.hl_login .hl-btn, .hl_login .hl-btn:active, .hl_login .hl-btn:focus { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value} !important; transition: 0.3s ease-in !important; }`, 12);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('login-button-text-color');
-        var loginButton = document.querySelector('.hl-btn');
-
-        colorPicker.addEventListener('input', function() {
-            loginButton.style.color = colorPicker.value;
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('login-button-text-color');
+            var loginButton = document.querySelector('.hl-btn');
+    
+            colorPicker.addEventListener('input', function() {
+                loginButton.style.color = colorPicker.value;
+    
+                updateCSS(
 `.hl_login .hl-btn, .hl_login .hl-btn:active, .hl_login .hl-btn:focus, .hl_login .hl-btn:hover { color: ${colorPicker.value} !important; }`, 13);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('login-button-hover-color');
-        var loginButton = document.querySelector('.hl-btn');
-
-        colorPicker.addEventListener('input', function() {
-            var style = document.createElement('style');
-            style.type = 'text/css';
-            style.innerHTML = `.hl_login .hl-btn:hover { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value}; }`;
-            document.getElementsByTagName('head')[0].appendChild(style);
-            // document.head.appendChild(style);
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('login-button-hover-color');
+            var loginButton = document.querySelector('.hl-btn');
+    
+            colorPicker.addEventListener('input', function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = `.hl_login .hl-btn:hover { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value}; }`;
+                document.getElementsByTagName('head')[0].appendChild(style);
+                // document.head.appendChild(style);
+    
+                updateCSS(
 `.hl_login .hl-btn:hover { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value}; }`, 14);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('radio-button-color');
-        var radioButton = document.querySelector('.custom-radio-button .checkmark');
-
-        colorPicker.addEventListener('input', function() {
-            radioButton.style.backgroundColor = colorPicker.value;
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('radio-button-color');
+            var radioButton = document.querySelector('.custom-radio-button .checkmark');
+    
+            colorPicker.addEventListener('input', function() {
+                radioButton.style.backgroundColor = colorPicker.value;
+    
+                updateCSS(
 `.hl_login input[type="radio"] { color: ${colorPicker.value} !important; }`, 15);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var resetButton = document.getElementById('reset-login');
-        var loginPage = document.getElementsByClassName('hl_login')[0];
-        var loginHeader = document.querySelector('.hl_login--header');
-        var loginCardHeader = document.querySelector('.login-card-heading');
-        var loginCardText = document.querySelectorAll('.hl-text-input-label');
-        var loginCardBody = document.querySelector('.card');
-        var loginButton = document.querySelector('.hl-btn');
-        var cardLinks = document.getElementsByClassName('link');
-        var footerText = document.getElementsByClassName('foot-note')[0];
-
-
-        resetButton.addEventListener('click', function() {
-            loginPage.style.background = '#F3F7FA';
-            loginHeader.style.background = '#FFFFFF';
-            loginCardHeader.style.color = '#000000';
-            loginCardText.forEach(function(text) {
-                text.style.color = '#000000';
             });
-            loginCardBody.style.background = '#FFFFFF';
-            loginButton.style.backgroundColor = '#55A0D8';
-            loginButton.style.color = 'white';
-            for (var i = 0; i < cardLinks.length; i++) {
-                cardLinks[i].style.color = '#188bf6';
-            }
-            footerText.style.color = '#000000';
-
-            for (var i = 6; i < 15; i++) {
-                lines[i] = '';
-            }
-
-            document.getElementById('css-code').value = lines.join('\n');
         });
-    });
-
-    // Loading page settings
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker1 = document.getElementById('loading-page-bg-1');
-        var colorPicker2 = document.getElementById('loading-page-bg-2');
-        var directionPicker = document.getElementById('loading-page-bg-direction');
-        var loadingPage = document.getElementsByClassName('hl-loader-container')[0];
-
-        function updateLoadingPageBackground() {
-            if (directionPicker.value === 'none') {
-                loadingPage.style.background = colorPicker1.value;
-
-                updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var resetButton = document.getElementById('reset-login');
+            var loginPage = document.getElementsByClassName('hl_login')[0];
+            var loginHeader = document.querySelector('.hl_login--header');
+            var loginCardHeader = document.querySelector('.login-card-heading');
+            var loginCardText = document.querySelectorAll('.hl-text-input-label');
+            var loginCardBody = document.querySelector('.card');
+            var loginButton = document.querySelector('.hl-btn');
+            var cardLinks = document.getElementsByClassName('link');
+            var footerText = document.getElementsByClassName('foot-note')[0];
+    
+    
+            resetButton.addEventListener('click', function() {
+                event.preventDefault();
+                loginPage.style.background = '#F3F7FA';
+                loginHeader.style.background = '#FFFFFF';
+                loginCardHeader.style.color = '#000000';
+                loginCardText.forEach(function(text) {
+                    text.style.color = '#000000';
+                });
+                loginCardBody.style.background = '#FFFFFF';
+                loginButton.style.backgroundColor = '#55A0D8';
+                loginButton.style.color = 'white';
+                for (var i = 0; i < cardLinks.length; i++) {
+                    cardLinks[i].style.color = '#188bf6';
+                }
+                footerText.style.color = '#000000';
+    
+                for (var i = 6; i < 15; i++) {
+                    lines[i] = '';
+                }
+    
+                document.getElementById('css-code').value = lines.join('\n');
+            });
+        });
+    
+        // Loading page settings
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker1 = document.getElementById('loading-page-bg-1');
+            var colorPicker2 = document.getElementById('loading-page-bg-2');
+            var directionPicker = document.getElementById('loading-page-bg-direction');
+            var loadingPage = document.getElementsByClassName('hl-loader-container')[0];
+    
+            function updateLoadingPageBackground() {
+                if (directionPicker.value === 'none') {
+                    loadingPage.style.background = colorPicker1.value;
+    
+                    updateCSS(
 `.hl-loader-container { background: ${colorPicker1.value} !important; }`, 16);
-            } else {
-                loadingPage.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
-
-                updateCSS(
+                } else {
+                    loadingPage.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
+    
+                    updateCSS(
 `.hl-loader-container { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}) !important; }`, 16);
+                }
             }
-        }
-
-        colorPicker1.addEventListener('input', updateLoadingPageBackground);
-        colorPicker2.addEventListener('input', updateLoadingPageBackground);
-        directionPicker.addEventListener('input', updateLoadingPageBackground);
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var colorPicker = document.getElementById('loading-circle-color');
-        var loadingCircles = document.querySelectorAll('.lds-ring div');
-
-        colorPicker.addEventListener('input', function() {
-            loadingCircles.forEach(function(circle) {
-                circle.style.borderColor = `${colorPicker.value} transparent transparent transparent`;
-            });
-
-            updateCSS(
-`.lds-ring div { border-color: ${colorPicker.value} transparent transparent transparent !important; }`, 17);
+    
+            colorPicker1.addEventListener('input', updateLoadingPageBackground);
+            colorPicker2.addEventListener('input', updateLoadingPageBackground);
+            directionPicker.addEventListener('input', updateLoadingPageBackground);
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var circleSize = document.getElementById('loading-circle-size');
-        var loadingCircles = document.querySelectorAll('.lds-ring div');
-        var ringField = document.getElementsByClassName('lds-ring')[0];
-
-        circleSize.addEventListener('input', function() {
-            console.log(circleSize.value);
-            var size = circleSize.value * 1.25;
-            for (var i = 0; i < loadingCircles.length; i++) {
-                loadingCircles[i].style.width = `${circleSize.value}px`;
-                loadingCircles[i].style.height = `${circleSize.value}px`;
-            }
-
-            ringField.style.width = `${size}px`;
-            ringField.style.height = `${size}px`;
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorPicker = document.getElementById('loading-circle-color');
+            var loadingCircles = document.querySelectorAll('.lds-ring div');
+    
+            colorPicker.addEventListener('input', function() {
+                loadingCircles.forEach(function(circle) {
+                    circle.style.borderColor = `${colorPicker.value} transparent transparent transparent`;
+                });
+    
+                updateCSS(
+`.lds-ring div { border-color: ${colorPicker.value} transparent transparent transparent !important; }`, 17);
+            });
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var circleSize = document.getElementById('loading-circle-size');
+            var loadingCircles = document.querySelectorAll('.lds-ring div');
+            var ringField = document.getElementsByClassName('lds-ring')[0];
+    
+            circleSize.addEventListener('input', function() {
+                console.log(circleSize.value);
+                var size = circleSize.value * 1.25;
+                for (var i = 0; i < loadingCircles.length; i++) {
+                    loadingCircles[i].style.width = `${circleSize.value}px`;
+                    loadingCircles[i].style.height = `${circleSize.value}px`;
+                }
+    
+                ringField.style.width = `${size}px`;
+                ringField.style.height = `${size}px`;
+    
+                updateCSS(
 `.lds-ring div { width: ${circleSize.value}px !important; height: ${circleSize.value}px !important; }
 .lds-ring { width: ${size}px !important; height: ${size}px !important; }`, 18);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var cicleWidth = document.getElementById('loading-circle-width');
-        var loadingCircles = document.querySelectorAll('.lds-ring div');
-
-        cicleWidth.addEventListener('input', function() {
-            for (var i = 0; i < loadingCircles.length; i++) {
-                loadingCircles[i].style.borderWidth = `${cicleWidth.value}px`;
-            }
-
-            updateCSS(
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var cicleWidth = document.getElementById('loading-circle-width');
+            var loadingCircles = document.querySelectorAll('.lds-ring div');
+    
+            cicleWidth.addEventListener('input', function() {
+                for (var i = 0; i < loadingCircles.length; i++) {
+                    loadingCircles[i].style.borderWidth = `${cicleWidth.value}px`;
+                }
+    
+                updateCSS(
 `.lds-ring div { border-width: ${cicleWidth.value}px !important; }`, 19);
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var resetButton = document.getElementById('reset-loading');
-        var loadingPage = document.getElementsByClassName('hl-loader-container')[0];
-        var loadingCircles = document.querySelectorAll('.lds-ring div');
-        var ringField = document.getElementsByClassName('lds-ring')[0];
-        var cicleSize = document.getElementById('loading-circle-size');
-
-        resetButton.addEventListener('click', function() {
-            loadingPage.style.background = '#F3F7FA';
-            cicleSize.value = 60;
-            for (var i = 0; i < loadingCircles.length; i++) {
-                loadingCircles[i].style.borderColor = '#55A0D8 transparent transparent transparent';
-                loadingCircles[i].style.width = '60px';
-                loadingCircles[i].style.height = '60px';
-                loadingCircles[i].style.borderWidth = '8px';
-            }
-            ringField.style.width = '70px';
-            ringField.style.height = '70px';
-
-            for (var i = 16; i < 19; i++) {
-                lines[i] = '';
-            }
-
-            document.getElementById('css-code').value = lines.join('\n');
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var resetButton = document.getElementById('reset-loading');
+            var loadingPage = document.getElementsByClassName('hl-loader-container')[0];
+            var loadingCircles = document.querySelectorAll('.lds-ring div');
+            var ringField = document.getElementsByClassName('lds-ring')[0];
+            var cicleSize = document.getElementById('loading-circle-size');
+    
+            resetButton.addEventListener('click', function() {
+                event.preventDefault();
+                loadingPage.style.background = '#F3F7FA';
+                cicleSize.value = 60;
+                for (var i = 0; i < loadingCircles.length; i++) {
+                    loadingCircles[i].style.borderColor = '#55A0D8 transparent transparent transparent';
+                    loadingCircles[i].style.width = '60px';
+                    loadingCircles[i].style.height = '60px';
+                    loadingCircles[i].style.borderWidth = '8px';
+                }
+                ringField.style.width = '70px';
+                ringField.style.height = '70px';
+    
+                for (var i = 16; i < 19; i++) {
+                    lines[i] = '';
+                }
+    
+                document.getElementById('css-code').value = lines.join('\n');
+            });
         });
-    });
 
-  </script>  
+        // Logo uploader
+        document.addEventListener('DOMContentLoaded', function() {
+            var logobutton = document.getElementById('logo-uploader');
+            var logoinput = document.getElementById('logo-input');
+            var companyLogo = document.getElementById('company-logo');
+            var avatar = document.getElementById('user-avatar');
+            var loginLogo = document.getElementById('login-logo');
+
+            logobutton.addEventListener('click', function() {
+                event.preventDefault();
+                logoinput.click();
+            });
+
+            logoinput.addEventListener('change', function() {
+                var file = logoinput.files[0];
+                var reader = new FileReader();
+                event.preventDefault();
+
+                reader.onloadend = function() {
+                    event.preventDefault();
+                    companyLogo.src = reader.result;
+                    avatar.src = reader.result;
+                    loginLogo.src = reader.result;
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    return;
+                }
+            });
+        });
+    
+      </script>  
 </head>
 <body>
-
-<div class="container">
-    <div class="left">
-        <div class="header-sidebar-settings">
-        <div class="logo-settings">
-            <div>Change your logo <input type="file" accept="image/*" id="logo-input"></div>
-        </div>
-        <div class="header-settings" style="margin-top: 10px;">
-        <div>Header settings <button id="reset-header">Reset</button></div>
-        <div>
-            <label for="header-bg-1">Header color 1:</label>
-            <input type="color" id="header-bg-1" name="header-bg-1" value="#FFFFFF">
-        </div>
-        <div>
-            <label for="header-bg-2">Header color 2:</label>
-            <input type="color" id="header-bg-2" name="header-bg-2" value="#FFFFFF">
-        </div>
-        <div>
-            <label for="header-bg-direction">Gradient direction:</label>
-            <select id="header-bg-direction">
-                <option value="none">None</option>
-                <option value="to right">To Right</option>
-                <option value="to left">To Left</option>
-                <option value="to bottom">To Bottom</option>
-                <option value="to top">To Top</option>
-                <option value="to bottom right">To Bottom Right</option>
-                <option value="to bottom left">To Bottom Left</option>
-                <option value="to top right">To Top Right</option>
-                <option value="to top left">To Top Left</option>
-            </select>
-        </div>
-        <div class="header-font-color">
-            <label for="header-font-color">Header text color:</label>
-            <input type="color" id="header-font-color" name="header-font-color" value="#6C727D">
-        </div>
-        <div class="header-line-color">
-            <label for="header-line-color">Header line color:</label>
-            <input type="color" id="header-line-color" name="header-line-color" value="#000000">
-        </div>
-        <div class="avatar-bg-color">
-            <label for="avatar-bg-color">Avatar background color:</label>
-            <input type="color" id="avatar-bg-color" name="avatar-bg-color" value="#FFFFFF">
-        </div>
-        </div>
-        <div class="sidebar-settings" style="margin-top: 10px;">
-        <div>Sidebar settings <button id="reset-sidebar">Reset</button></div>
-        <div>
-            <label for="sidebar-bg-1">Sidebar color 1:</label>
-            <input type="color" id="sidebar-bg-1" name="sidebar-bg-1" value="#303746">
-        </div>
-        <div>
-            <label for="sidebar-bg-2">Sidebar color 2:</label>
-            <input type="color" id="sidebar-bg-2" name="sidebar-bg-2" value="#303746">
-        </div>
-        <div>
-            <label for="sidebar-bg-direction">Gradient direction:</label>
-            <select id="sidebar-bg-direction">
-                <option value="none">None</option>
-                <option value="to right">To Right</option>
-                <option value="to left">To Left</option>
-                <option value="to bottom">To Bottom</option>
-                <option value="to top">To Top</option>
-                <option value="to bottom right">To Bottom Right</option>
-                <option value="to bottom left">To Bottom Left</option>
-                <option value="to top right">To Top Right</option>
-                <option value="to top left">To Top Left</option>
-            </select>
-        </div>
-        <div class="sidebar-font-color">
-            <label for="sidebar-font-color">Sidebar text color:</label>
-            <input type="color" id="sidebar-font-color" name="sidebar-font-color" value="#6D727C">
-        </div>
-        </div>
-    </div>
-    <div class="login-page-settings">
-    <div>
-        <label for="login-page-header-placement">Login page header placement:</label>
-        <select id="login-page-header-placement">
-            <option value="top">On top of page</option>
-            <option value="bottom">On top of card</option>
-        </select>
-    </div>
-    <div>Login page settings <button id="reset-login">Reset</button></div>
-    <div>
-        <label for="login-bg-1">Background color 1:</label>
-        <input type="color" id="login-bg-1" name="login-bg-1" value="#F3F7FA">
-    </div>
-    <div>
-        <label for="login-bg-2">Background color 2:</label>
-        <input type="color" id="login-bg-2" name="login-bg-2" value="#F3F7FA">
-    </div>
-    <div>
-        <label for="login-bg-direction">Gradient direction:</label>
-        <select id="login-bg-direction">
-            <option value="none">None</option>
-            <option value="to right">To Right</option>
-            <option value="to left">To Left</option>
-            <option value="to bottom">To Bottom</option>
-            <option value="to top">To Top</option>
-            <option value="to bottom right">To Bottom Right</option>
-            <option value="to bottom left">To Bottom Left</option>
-            <option value="to top right">To Top Right</option>
-            <option value="to top left">To Top Left</option>
-        </select>
-    </div>
-    <div class="login-card-header-color" style="margin-top: 10px;">
-        <label for="login-card-header-color">Login card header color:</label>
-        <input type="color" id="login-card-header-color" name="login-card-header-color" value="#FFFFFF">
-    </div>
-    <div class="login-card-text-color">
-        <label for="login-card-text-color">Login card text color:</label>
-        <input type="color" id="login-card-text-color" name="login-card-text-color">
-    </div>
-    <div class="login-card-link-color">
-        <label for="login-card-link-color">Login card link color:</label>
-        <input type="color" id="login-card-link-color" name="login-card-link-color">
-    </div>
-    <div class="login-card-body-color" style="margin-top: 10px;">
-        <label for="login-card-body-color">Login card body color:</label>
-        <input type="color" id="login-card-body-color" name="login-card-body-color">
-    </div>
-    <div class="login-button-color" style="margin-top: 10px;">
-        <label for="login-button-color">Login button color:</label>
-        <input type="color" id="login-button-color" name="login-button-color">
-    </div>
-    <div class="login-button-text-color">
-        <label for="login-button-text-color">Login button text color:</label>
-        <input type="color" id="login-button-text-color" name="login-button-text-color">
-    </div>
-    <div class="login-button-hover-color">
-        <label for="login-button-hover-color">Login button hover color:</label>
-        <input type="color" id="login-button-hover-color" name="login-button-hover-color">
-    </div>
-    <div class="radio-button-color">
-        <label for="radio-button-color">Radio button color:</label>
-        <input type="color" id="radio-button-color" name="radio-button-color">
-    </div>
-    </div>
-    <div class="loading-page-settings">
-    <div>Loading page settings <button id="reset-loading">Reset</button></div>
-    <div>
-        <label for="loading-page-bg-1">Background color 1:</label>
-        <input type="color" id="loading-page-bg-1" name="loading-page-bg-1" value="#F3F7FA">
-    </div>
-    <div>
-        <label for="loading-page-bg-2">Background color 2:</label>
-        <input type="color" id="loading-page-bg-2" name="loading-page-bg-2" value="#F3F7FA">
-    </div>
-    <div>
-        <label for="loading-page-bg-direction">Gradient direction:</label>
-        <select id="loading-page-bg-direction">
-            <option value="none">None</option>
-            <option value="to right">To Right</option>
-            <option value="to left">To Left</option>
-            <option value="to bottom">To Bottom</option>
-            <option value="to top">To Top</option>
-            <option value="to bottom right">To Bottom Right</option>
-            <option value="to bottom left">To Bottom Left</option>
-            <option value="to top right">To Top Right</option>
-            <option value="to top left">To Top Left</option>
-        </select>
-    </div>
-    <div class="loading-circle-color">
-        <label for="loading-circle-color">Loading circle color:</label>
-        <input type="color" id="loading-circle-color" name="loading-circle-color" value="#55A0D8">
-    </div>
-    <div class="loading-circle-size">
-        <label for="loading-circle-size">Loading circle size:</label>
-        <input type="number" id="loading-circle-size" name="loading-circle-size" value="60">px
-    </div>
-    <div class="loading-circle-width">
-        <label for="loading-circle-width">Loading circle width:</label>
-        <input type="number" id="loading-circle-width" name="loading-circle-width" value="8">px
-    </div>
-    </div>
-    </div>
-    <div class="right">
-        <div id="header-sidebar">
-                <div class="sidebar-v2-agency">
-                        <div id="sidebar-v2">
-                            <div class="logo-container">
-                                <img src="https://msgsndr-private.storage.googleapis.com/companyPhotos/cdd97a3d-2c93-4eeb-914c-2eb56f3e2b33.png" alt="Logo" id="company-logo">
-                            </div>
-                            <div class="location-switcher-sidebar-v2">
-                                <div>
-                                    <i class="fa-solid fa-arrow-pointer"></i>
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <form class="form">
+                    <label for="logo-upload">Change your logo</label>
+                    <input type="file" id="logo-input" name="logo-upload" accept="image/*">
+                    <button class="formbutton" id="logo-uploader" name="logo-uploader">Upload</button>
+                    <label for="reset-header">Header settings</label>
+                    <button class="formbutton" id="reset-header" name="reset-header">Reset</button>
+                    <label for="header-bg-1">Header bg color 1:</label>
+                    <input type="color" id="header-bg-1" name="header-bg-1" value="#FFFFFF">
+                    <label for="header-bg-2">Header bg color 2:</label>
+                    <input type="color" id="header-bg-2" name="header-bg-2" value="#FFFFFF">
+                    <label for="header-bg-direction">Header bg direction:</label>
+                    <select id="header-bg-direction" name="header-bg-direction">
+                        <option value="none">None</option>
+                        <option value="to right">To right</option>
+                        <option value="to left">To left</option>
+                        <option value="to top">To top</option>
+                        <option value="to bottom">To bottom</option>
+                        <option value="to top right">To top right</option>
+                        <option value="to top left">To top left</option>
+                        <option value="to bottom right">To bottom right</option>
+                        <option value="to bottom left">To bottom left</option>
+                    </select>
+                    <label for="header-font-color">Header font color:</label>
+                    <input type="color" id="header-font-color" name="header-font-color" value="#6C727D">
+                    <label for="header-line-color">Header line color:</label>
+                    <input type="color" id="header-line-color" name="header-line-color" value="#000000">
+                    <label for="avatar-bg-color">Avatar bg color:</label>
+                    <input type="color" id="avatar-bg-color" name="avatar-bg-color" value="#FFFFFF">
+                    <label for="reset-sidebar">Sidebar settings</label>
+                    <button class="formbutton" id="reset-sidebar" name="reset-sidebar">Reset</button>
+                    <label for="sidebar-bg-1">Sidebar bg color 1:</label>
+                    <input type="color" id="sidebar-bg-1" name="sidebar-bg-1" value="#303746">
+                    <label for="sidebar-bg-2">Sidebar bg color 2:</label>
+                    <input type="color" id="sidebar-bg-2" name="sidebar-bg-2" value="#303746">
+                    <label for="sidebar-bg-direction">Sidebar bg direction:</label>
+                    <select id="sidebar-bg-direction" name="sidebar-bg-direction">
+                        <option value="none">None</option>
+                        <option value="to right">To right</option>
+                        <option value="to left">To left</option>
+                        <option value="to top">To top</option>
+                        <option value="to bottom">To bottom</option>
+                        <option value="to top right">To top right</option>
+                        <option value="to top left">To top left</option>
+                        <option value="to bottom right">To bottom right</option>
+                        <option value="to bottom left">To bottom left</option>
+                    </select>
+                    <label for="sidebar-font-color">Sidebar font color:</label>
+                    <input type="color" id="sidebar-font-color" name="sidebar-font-color" value="#6D727C">
+                </form>
+            </div>
+            <div class="column">
+                <div class="example">
+                    <div class="sidebar-v2-agency">
+                            <div id="sidebar-v2">
+                                <div class="logo-container">
+                                    <img src="https://msgsndr-private.storage.googleapis.com/companyPhotos/cdd97a3d-2c93-4eeb-914c-2eb56f3e2b33.png" alt="Logo" id="company-logo">
                                 </div>
-                                <div>
-                                    <span>Click here to switch</span>
-                                </div>  
+                                <div class="location-switcher-sidebar-v2">
+                                    <div>
+                                        <i class="fa-solid fa-arrow-pointer"></i>
+                                    </div>
+                                    <div>
+                                        <span>Click here to switch</span>
+                                    </div>  
+                                </div>
+                                    <nav>
+                                            <a href="#">
+                                                    <span class="nav-title">Agency Dashboard</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">SaaS Configurator</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Prospecting</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Sub-Accounts</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Account Snapshots</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Reselling</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Marketplace</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Affiliate Portal</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Template Library</span>
+                                            </a>
+                                            <a href="#">
+                                                    <span class="nav-title">Partners</span>
+                                            </a>
+                                    </nav>
                             </div>
-                                <nav>
-                                        <a href="#">
-                                                <span class="nav-title">Agency Dashboard</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">SaaS Configurator</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Prospecting</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Sub-Accounts</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Account Snapshots</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Reselling</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Marketplace</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Affiliate Portal</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Template Library</span>
-                                        </a>
-                                        <a href="#">
-                                                <span class="nav-title">Partners</span>
-                                        </a>
-                                </nav>
-                        </div>
-                </div>
-                <div style="width: 100%;">
-                    <div class="hl_header --agency">
-                        <div class="container-fluid">
-                            <div class="topmenu-nav">
-                                <div class="topmenu-navtitle">Calendars</div>
-                                <a href="#" class="topmenu-navitem active">
-                                    <span>Calendars</span>
-                                </a>
-                                <a href="#">
-                                    <span>Appointments</span>
-                                </a>
-                                <a href="#">
-                                    <span>Settings</span>
-                                </a>
-                            </div>
-                            <div class="hl_header--controls">
-                                <a href="#"><i class="fa-solid fa-bullhorn"></i></a>
-                                <a href="#"><i class="fa-solid fa-bell"></i></a>
-                                <div class="avatar">
-                                    <div class="avatar_img">
-                                        <img src="https://msgsndr-private.storage.googleapis.com/companyPhotos/cdd97a3d-2c93-4eeb-914c-2eb56f3e2b33.png" alt="Avatar" id="user-avatar">
+                    </div>
+                    <div style="width: 100%;">
+                        <div class="hl_header --agency">
+                            <div class="container-fluid">
+                                <div class="topmenu-nav">
+                                    <div class="topmenu-navtitle">Calendars</div>
+                                    <a href="#" class="topmenu-navitem active">
+                                        <span>Calendars</span>
+                                    </a>
+                                    <a href="#">
+                                        <span>Appointments</span>
+                                    </a>
+                                    <a href="#">
+                                        <span>Settings</span>
+                                    </a>
+                                </div>
+                                <div class="hl_header--controls">
+                                    <a href="#"><i class="fa-solid fa-bullhorn"></i></a>
+                                    <a href="#"><i class="fa-solid fa-bell"></i></a>
+                                    <div class="avatar">
+                                        <div class="avatar_img">
+                                            <img src="https://msgsndr-private.storage.googleapis.com/companyPhotos/cdd97a3d-2c93-4eeb-914c-2eb56f3e2b33.png" alt="Avatar" id="user-avatar">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="hl_wrapper">
-                        <div class="page-content">
-                            Contents of the page
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <div id="login-page">
-            <div class="hl_login">
-                <div class="hl_login--header">
-                    <img src="https://msgsndr-private.storage.googleapis.com/companyPhotos/cdd97a3d-2c93-4eeb-914c-2eb56f3e2b33.png" alt="Logo" id="company-logo">
-                </div>
-                <div class="hl_login--body">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="login-card-heading">
-                                <h2>Sign in to your account</h2>
+                        <div class="hl_wrapper">
+                            <div class="page-content">
+                                Contents of the page
                             </div>
-                            <div class="form-group">
-                                <div class="hl-text-input-container">
-                                    <span class="hl-text-input-label">Email</span>
-                                    <input type="email" class="hl-text-input" placeholder="Your email address">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="hl-text-input-container">
-                                    <span class="hl-text-input-label">Password</span>
-                                    <input type="password" class="hl-text-input" placeholder="The password you picked">
-                                    <a href="#" class="forgot-password link">Forgot your password?</a>
-                                </div>
-                            </div>
-                            <div class="form-group button-holder">
-                                <div style="display: inline-block; position: relative; width: 100%;">
-                                <button class="hl-btn"> Sign in</button>
-                                </div>
-                            </div>
-                            <div class="mt-6">
-                                <span class="or-divider">--------------------------  Or continue with  --------------------------</span>
-                            </div>
-                            <div class="form-group button-holder mt-3">
-                                <img src="https://global.discourse-cdn.com/webflow1/original/4X/b/4/a/b4ae7d5e642592b35a28096e615f7ee282def076.png" alt="google-sign-in" class="google-sign-in">
-                            </div>
-                            <p class="foot-note">
-                                By signing in you agree to our <a href="#" class="link">Terms and conditions</a>
-                            </p>
-                            <label class="custom-radio-button">
-                                <input type="radio" name="group" />
-                                <span class="checkmark"></span>
-                                Example radio button for next pages
-                            </label>                              
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="loading-page">
-            <div class="hl-loader-container">
-                <div class="lds-ring">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div class="hl-loader-info">
-                    <span>Initializing...</span>
+        <div class="row">
+            <div class="column">
+                <form class="form">
+                    <label for="reset-login">Reset Login page</label>
+                    <button class="formbutton" id="reset-login" name="reset-login">Reset</button>
+                    <label for="login-bg-1">Login page bg color 1:</label>
+                    <input type="color" id="login-bg-1" name="login-bg-1" value="#F3F7FA">
+                    <label for="login-bg-2">Login page bg color 2:</label>
+                    <input type="color" id="login-bg-2" name="login-bg-2" value="#F3F7FA">
+                    <label for="login-bg-direction">Login page bg direction:</label>
+                    <select id="login-bg-direction" name="login-bg-direction">
+                        <option value="none">None</option>
+                        <option value="to right">To right</option>
+                        <option value="to left">To left</option>
+                        <option value="to top">To top</option>
+                        <option value="to bottom">To bottom</option>
+                        <option value="to top right">To top right</option>
+                        <option value="to top left">To top left</option>
+                        <option value="to bottom right">To bottom right</option>
+                        <option value="to bottom left">To bottom left</option>
+                    </select>
+                    <label for="login-page-header-placement">Login page header placement:</label>
+                    <select id="login-page-header-placement" name="login-page-header-placement">
+                        <option value="top">Top</option>
+                        <option value="bottom">Above card</option>
+                    </select>
+                    <label for="login-card-header-color">Login card header color:</label>
+                    <input type="color" id="login-card-header-color" name="login-card-header-color" value="#FFFFFF">
+                    <label for="login-card-text-color">Login card text color:</label>
+                    <input type="color" id="login-card-text-color" name="login-card-text-color">
+                    <label for="login-card-link-color">Login card link color:</label>
+                    <input type="color" id="login-card-link-color" name="login-card-link-color">
+                    <label for="login-card-body-color">Login card body color:</label>
+                    <input type="color" id="login-card-body-color" name="login-card-body-color">
+                    <label for="login-button-color">Login button color:</label>
+                    <input type="color" id="login-button-color" name="login-button-color">
+                    <label for="login-button-text-color">Login button text color:</label>
+                    <input type="color" id="login-button-text-color" name="login-button-text-color">
+                    <label for="login-button-hover-color">Login button hover color:</label>
+                    <input type="color" id="login-button-hover-color" name="login-button-hover-color">
+                    <label for="radio-button-color">Radio button color:</label>
+                    <input type="color" id="radio-button-color" name="radio-button-color">
+                </form>
+            </div>
+            <div class="column">
+                <div class="example">
+                    <div class="hl_login">
+                        <div class="hl_login--header">
+                            <img src="https://msgsndr-private.storage.googleapis.com/companyPhotos/cdd97a3d-2c93-4eeb-914c-2eb56f3e2b33.png" alt="Logo" id="login-logo">
+                        </div>
+                        <div class="hl_login--body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="login-card-heading">
+                                        <h2>Sign in to your account</h2>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="hl-text-input-container">
+                                            <span class="hl-text-input-label">Email</span>
+                                            <input type="email" class="hl-text-input" placeholder="Your email address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="hl-text-input-container">
+                                            <span class="hl-text-input-label">Password</span>
+                                            <input type="password" class="hl-text-input" placeholder="The password you picked">
+                                            <a href="#" class="forgot-password link">Forgot your password?</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group button-holder">
+                                        <div style="display: inline-block; position: relative; width: 100%;">
+                                        <button class="hl-btn"> Sign in</button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6">
+                                        <span class="or-divider">--------------------------  Or continue with  --------------------------</span>
+                                    </div>
+                                    <div class="form-group button-holder mt-3">
+                                        <img src="https://global.discourse-cdn.com/webflow1/original/4X/b/4/a/b4ae7d5e642592b35a28096e615f7ee282def076.png" alt="google-sign-in" class="google-sign-in">
+                                    </div>
+                                    <p class="foot-note">
+                                        By signing in you agree to our <a href="#" class="link">Terms and conditions</a>
+                                    </p>
+                                    <label class="custom-radio-button">
+                                        <input type="radio" name="group" />
+                                        <span class="checkmark"></span>
+                                        Example radio button for next pages
+                                    </label>                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="column">
+                <form class="form">
+                    <label for="reset-loading">Reset loading page</label>
+                    <button class="formbutton" id="reset-loading" name="reset-loading">Reset</button>
+                    <label for="loading-page-bg-1">Loading page bg color 1:</label>
+                    <input type="color" id="loading-page-bg-1" name="loading-page-bg-1" value="#F3F7FA">
+                    <label for="loading-page-bg-2">Loading page bg color 2:</label>
+                    <input type="color" id="loading-page-bg-2" name="loading-page-bg-2" value="#F3F7FA">
+                    <label for="loading-page-bg-direction">Loading page bg direction:</label>
+                    <select id="loading-page-bg-direction" name="loading-page-bg-direction">
+                        <option value="none">None</option>
+                        <option value="to right">To right</option>
+                        <option value="to left">To left</option>
+                        <option value="to top">To top</option>
+                        <option value="to bottom">To bottom</option>
+                        <option value="to top right">To top right</option>
+                        <option value="to top left">To top left</option>
+                        <option value="to bottom right">To bottom right</option>
+                        <option value="to bottom left">To bottom left</option>
+                    </select>
+                    <label for="loading-circle-color">Loading circle color:</label>
+                    <input type="color" id="loading-circle-color" name="loading-circle-color" value="#55A0D8">
+                    <label for="loading-circle-size">Loading circle size:</label>
+                    <input type="range" id="loading-circle-size" name="loading-circle-size" min="10" max="500" step="10" value="60">
+                    <label for="loading-circle-width">Loading circle width:</label>
+                    <input type="range" id="loading-circle-width" name="loading-circle-width" min="1" max="20">
+                </form>
+            </div>
+            <div class="column">
+                <div class="example" style="height: 100%;">
+                    <div class="hl-loader-container">
+                        <div class="lds-ring">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="hl-loader-info">
+                            <span>Initializing...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row full-width">
+            <div>
+                <div>Click here to copy your CSS code <button class="formbutton" id="copy-code">Copy</button></div>
+                <div>
+                    <textarea id="css-code" cols="100" rows="20"></textarea>
+                </div>  
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="bottom">
-    <div>
-        <div>Click here to copy your CSS code <button id="copy-code">Copy</button></div>
-        <div>
-            <textarea id="css-code" cols="100" rows="20"></textarea>
-        </div>  
-    </div>
-</div>
-
 </body>
 </html>
