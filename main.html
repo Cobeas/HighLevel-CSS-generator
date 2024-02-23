@@ -6,36 +6,38 @@
     <title>Document</title>
     <style>
         /* Basic page lay-out */
-    .container { display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px; border: 1px solid black; border-radius: 10px; }
-    .row { display: flex; align-items: stretch; justify-content: flex-start; width: 100%; }
-    .row .column:nth-child(1) { flex: 0 0 30%; }
-    .row .column:nth-child(2) { flex: 1; }
-    .column { padding: 10px 10px 10px 10px; }
-    .column:nth-child(1) { flex: 0 0 150px; margin-top: 15px; }
-    .column:nth-child(2) { flex: 1; max-width: 100%; }
-    .column > div { max-width: 100%; }
-    .example { display: flex; width: 100%; height: fit-content; padding: 10px; border: 1px solid black; border-radius: 10px; box-sizing: border-box; }
-    .full-width { flex-basis: 100%; padding: 10px; margin-top: 20px; }
-    .form { display: grid; grid-template-columns: max-content auto; gap: 10px; align-items: center; width: max-content; }
-    input[type="text"] { width: 100%; padding: 8px; margin: 2px 0; border: 1px solid black; }
-    label { text-align: left; margin: 2px 0; white-space: nowrap; }
-    #css-code { width: 75vw; }
-    .formbutton { width: 100px; }
-    select { width: 120px; }
-    input[type="file"] { display: none; }
+        .container { display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px; border: 1px solid black; border-radius: 10px; }
+        .row { display: flex; align-items: stretch; justify-content: flex-start; width: 100%; }
+        .row .column:nth-child(1) { flex: 0 0 30%; }
+        .row .column:nth-child(2) { flex: 1; }
+        .column { padding: 10px 10px 10px 10px; }
+        .column:nth-child(1) { flex: 0 0 150px; margin-top: 15px; }
+        .column:nth-child(2) { flex: 1; max-width: 100%; }
+        .column > div { max-width: 100%; }
+        .example { display: flex; width: 100%; height: fit-content; padding: 10px; border: 1px solid black; border-radius: 10px; box-sizing: border-box; overflow: hidden; }
+        .full-width { flex-basis: 100%; padding: 10px; margin-top: 20px; }
+        .form { display: grid; grid-template-columns: max-content auto; gap: 10px; align-items: center; width: max-content; }
+        input[type="text"] { width: 100%; padding: 8px; margin: 2px 0; border: 1px solid black; }
+        label { text-align: left; margin: 2px 0; white-space: nowrap; }
+        #css-code { width: 75vw; }
+        .formbutton { width: 100px; }
+        select { width: 120px; }
+        input[type="file"] { display: none; }
     </style>
     <style>
-        /* Main page lay-out */
+        /* Internal lay-out */
         nav { display: flex; flex-direction: column; }
         nav a:hover { background: #353535; }
         .location-switcher-sidebar-v2 { display: flex; align-items: center; gap: 5px; margin: 10px; padding: 10px; padding-bottom: 5px; color: aliceblue; border-radius: 8px; background-color: #4D5562; }
         .topmenu-nav { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-        .topmenu-nav a { text-decoration: none; color: #6C727D; }
+        .topmenu-nav a { text-decoration: none; color: #6C727D; position: relative; }
         .topmenu-navtitle { color: #6C727D; padding-bottom: 8px; }
         .topmenu-nav a.active { border-bottom: 3px solid #000; padding-bottom: 5px; }
-        .topmenu-nav a { border-bottom: 3px solid transparent; padding-bottom: 5px; }
+        .topmenu-nav a { border-bottom: 3px solid transparent; padding-bottom: 5px; position: relative; }
+        .menu-item-container { position: relative; }
+        .menu-dropdown { display: flex; flex-direction: column; border-radius: 5px; padding: 4px; margin-top: 20px; position: absolute; top: 10%; left: 0; z-index: 5; background: #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
         .page-content { padding: 20px; }
-        .sidebar-v2-agency { display: flex; text-decoration: none; }
+        .sidebar-v2-agency { display: flex; text-decoration: none; max-height: 500px; }
         #sidebar-v2 { position: relative; background: #2F3747; }
         #sidebar-v2 img { padding: 10px; height: 40px; max-width: 80%; }
         #sidebar-v2 .logo-container { display: flex; justify-content: center; align-items: center; text-align: center; width: 100%; }
@@ -46,8 +48,7 @@
         .hl_header--controls a { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background-color: #4CAF50; color: white; text-decoration: none; }
         .avatar { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background-color: transparent; }
         .avatar_img img { max-width: 32px; max-height: 32px; border-radius: 50%; overflow: hidden; }
-        .hl_wrapper { height: calc(100% - 46px); background: #F3F7FA; }
-
+        .hl_wrapper { height: calc(100% - 46px) !important; background: #F3F7FA; }
     </style>
     <style>
         /* login page */
@@ -79,6 +80,7 @@
         .custom-radio-button input:checked + .checkmark:after { content: ""; position: absolute; display: block; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: white; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     </style>
     <style>
+        /* Loading page */
         .loading-page-settings { margin-top: 470px; }
         .hl-loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; justify-items: center; background: #F3F7FA; width: 100%; height: 100%; }
         .lds-ring { display: inline-block; position: relative; width: 70px; height: 70px; }
@@ -91,7 +93,7 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
-        let lines = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+        let lines = ["", "", "", "", "a[role=menuitem] span{ color: black !important; }", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
         document.addEventListener('DOMContentloaded', function() {
             document.getElementById('css-code').value = lines.join('\n');
         });
@@ -179,6 +181,33 @@
 `.avatar { background: ${colorPicker.value}; }`, 3);
             });
         });
+
+document.addEventListener('DOMContentLoaded', function() {
+    var colorPicker = document.getElementById('header-dropdown-bg');
+    var dropDown = document.getElementsByClassName('menu-dropdown')[0];
+
+    colorPicker.addEventListener('input', function() {
+        dropDown.style.background = colorPicker.value;
+
+        updateCSS(
+`[role=menu] { background: ${colorPicker.value} !important; }`, 4);
+    });
+});
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var colorPicker = document.getElementById('header-dropdown-color');
+        var dropdownText = document.getElementsByClassName('menu-item');
+
+        colorPicker.addEventListener('input', function() {
+            console.log('Changing color');
+            for (var i = 0; i < dropdownText.length; i++) {
+                dropdownText[i].style.color = colorPicker.value;
+            }
+
+            updateCSS(
+`a[role=menuitem] span{ color: ${colorPicker.value} !important; }`, 5);
+        });
+    });
     
         document.addEventListener('DOMContentLoaded', function() {
             var resetButton = document.getElementById('reset-header');
@@ -196,9 +225,10 @@
                     navLink.style.color = '#6C727D';
                 });
     
-                for (var i = 0; i < 3; i++) {
+                for (var i = 0; i < 4; i++) {
                     lines[i] = '';
                 }
+                lines[5] = 'a[role=menuitem] span{ color: black !important; }';
     
                 document.getElementById('css-code').value = lines.join('\n');
             });
@@ -217,13 +247,13 @@
     
                     updateCSS(
 `.sidebar-v2-agency #sidebar-v2.default-bg-color { background: ${colorPicker1.value}; }
-.sidebar-v2-location #sidebar-v2.default-bg-color { background: ${colorPicker1.value}; }`, 4);
+.sidebar-v2-location #sidebar-v2.default-bg-color { background: ${colorPicker1.value}; }`, 6);
                 } else {
                     sidebar.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
     
                     updateCSS(
 `.sidebar-v2-agency #sidebar-v2.default-bg-color { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }
-.sidebar-v2-location #sidebar-v2.default-bg-color { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 4);
+.sidebar-v2-location #sidebar-v2.default-bg-color { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 6);
                 }
             }
     
@@ -244,7 +274,7 @@
     
                 updateCSS(
 `.sidebar-v2-agency #sidebar-v2 .hl_nav-header-without-footer nav a .nav-title { color: ${colorPicker.value} !important; }
-.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a .nav-title { color: ${colorPicker.value} !important; }`, 5);
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a .nav-title { color: ${colorPicker.value} !important; }`, 7);
             });
         });
     
@@ -260,7 +290,7 @@
                     navTitles[i].style.color = '#6C727D';
                 }
     
-                for (var i = 4; i < 5; i++) {
+                for (var i = 6; i < 7; i++) {
                     lines[i] = '';
                 }
     
@@ -297,12 +327,12 @@
                     loginPage.style.background = colorPicker1.value;
     
                     updateCSS(
-`.hl_login { background: ${colorPicker1.value}; }`, 6);
+`.hl_login { background: ${colorPicker1.value}; }`, 8);
                 } else {
                     loginPage.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
     
                     updateCSS(
-`.hl_login { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 6);
+`.hl_login { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}); }`, 8);
     
                 }
             }
@@ -371,7 +401,7 @@ div.hl_login--body { max-width: 450px !important; width: 100% !important; border
 .hl_login .hl-text-input { font-size: 0.875rem; border: 1px solid #BDBDBD !important; border-radius: 5px !important; padding: 10px 10px !important; }
 .hl_login--body .login-card-heading { margin-bottom: 20px !important; text-align: center !important }
 .hl_login--body .heading2 { margin-bottom: 10px !important; font-size: 25px !important; }
-.hl_login .button-holder.form-group { margin: 10px auto !important }`, 7);
+.hl_login .button-holder.form-group { margin: 10px auto !important }`, 9);
                 } else {
                     mt6.style.display = 'block';
                     mt3.style.display = 'block';
@@ -404,7 +434,7 @@ div.hl_login--body { max-width: 450px !important; width: 100% !important; border
                     heading.style.margin = '0 50px 0 0'
     
                     updateCSS(
-                        '', 7);
+                        '', 9);
                 }
     
             });
@@ -419,7 +449,7 @@ div.hl_login--body { max-width: 450px !important; width: 100% !important; border
     
                 updateCSS(
 `.hl_login--body .login-card-heading { color: ${colorPicker.value} !important; }
-.hl_login--body .heading2 { color ${colorPicker.value} !important }`, 8);
+.hl_login--body .heading2 { color ${colorPicker.value} !important }`, 10);
             });
         });
     
@@ -438,7 +468,7 @@ div.hl_login--body { max-width: 450px !important; width: 100% !important; border
 `.hl_login--body .card { color: ${colorPicker.value}; }
 div.hl_login--body { color: ${colorPicker.value}; }
 .hl_login .hl-text-input { color: ${colorPicker.value} }
-.hl_login .hl-text-input-label { color: ${colorPicker.value}; }`, 9);
+.hl_login .hl-text-input-label { color: ${colorPicker.value}; }`, 11);
             });
         });
     
@@ -453,7 +483,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
     
                 updateCSS(
 `.form-group a { color: ${colorPicker.value}; }
-.foot-note a { color: ${colorPicker.value}; }`, 10);
+.foot-note a { color: ${colorPicker.value}; }`, 12);
             });
         });
     
@@ -465,7 +495,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 loginCardBody.style.background = colorPicker.value;
     
                 updateCSS(
-`.hl_login--body .card { background: ${colorPicker.value} !important; }`, 11);
+`.hl_login--body .card { background: ${colorPicker.value} !important; }`, 13);
             });
         });
     
@@ -477,7 +507,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 loginButton.style.backgroundColor = colorPicker.value;
     
                 updateCSS(
-`.hl_login .hl-btn, .hl_login .hl-btn:active, .hl_login .hl-btn:focus { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value} !important; transition: 0.3s ease-in !important; }`, 12);
+`.hl_login .hl-btn, .hl_login .hl-btn:active, .hl_login .hl-btn:focus { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value} !important; transition: 0.3s ease-in !important; }`, 14);
             });
         });
     
@@ -489,7 +519,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 loginButton.style.color = colorPicker.value;
     
                 updateCSS(
-`.hl_login .hl-btn, .hl_login .hl-btn:active, .hl_login .hl-btn:focus, .hl_login .hl-btn:hover { color: ${colorPicker.value} !important; }`, 13);
+`.hl_login .hl-btn, .hl_login .hl-btn:active, .hl_login .hl-btn:focus, .hl_login .hl-btn:hover { color: ${colorPicker.value} !important; }`, 15);
             });
         });
     
@@ -505,7 +535,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 // document.head.appendChild(style);
     
                 updateCSS(
-`.hl_login .hl-btn:hover { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value}; }`, 14);
+`.hl_login .hl-btn:hover { background-color: ${colorPicker.value} !important; border-color: ${colorPicker.value}; }`, 16);
             });
         });
     
@@ -517,7 +547,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 radioButton.style.backgroundColor = colorPicker.value;
     
                 updateCSS(
-`.hl_login input[type="radio"] { color: ${colorPicker.value} !important; }`, 15);
+`.hl_login input[type="radio"] { color: ${colorPicker.value} !important; }`, 17);
             });
         });
     
@@ -549,7 +579,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 }
                 footerText.style.color = '#000000';
     
-                for (var i = 6; i < 15; i++) {
+                for (var i = 8; i < 17; i++) {
                     lines[i] = '';
                 }
     
@@ -569,12 +599,12 @@ div.hl_login--body { color: ${colorPicker.value}; }
                     loadingPage.style.background = colorPicker1.value;
     
                     updateCSS(
-`.hl-loader-container { background: ${colorPicker1.value} !important; }`, 16);
+`.hl-loader-container { background: ${colorPicker1.value} !important; }`, 18);
                 } else {
                     loadingPage.style.background = `linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value})`;
     
                     updateCSS(
-`.hl-loader-container { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}) !important; }`, 16);
+`.hl-loader-container { background: linear-gradient(${directionPicker.value}, ${colorPicker1.value}, ${colorPicker2.value}) !important; }`, 18);
                 }
             }
     
@@ -593,7 +623,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 });
     
                 updateCSS(
-`.lds-ring div { border-color: ${colorPicker.value} transparent transparent transparent !important; }`, 17);
+`.lds-ring div { border-color: ${colorPicker.value} transparent transparent transparent !important; }`, 19);
             });
         });
     
@@ -615,7 +645,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
     
                 updateCSS(
 `.lds-ring div { width: ${circleSize.value}px !important; height: ${circleSize.value}px !important; }
-.lds-ring { width: ${size}px !important; height: ${size}px !important; }`, 18);
+.lds-ring { width: ${size}px !important; height: ${size}px !important; }`, 20);
             });
         });
     
@@ -629,7 +659,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 }
     
                 updateCSS(
-`.lds-ring div { border-width: ${cicleWidth.value}px !important; }`, 19);
+`.lds-ring div { border-width: ${cicleWidth.value}px !important; }`, 21);
             });
         });
     
@@ -653,7 +683,7 @@ div.hl_login--body { color: ${colorPicker.value}; }
                 ringField.style.width = '70px';
                 ringField.style.height = '70px';
     
-                for (var i = 16; i < 19; i++) {
+                for (var i = 18; i < 21; i++) {
                     lines[i] = '';
                 }
     
@@ -726,6 +756,10 @@ div.hl_login--body { color: ${colorPicker.value}; }
                     <input type="color" id="header-font-color" name="header-font-color" value="#6C727D">
                     <label for="header-line-color">Header line color:</label>
                     <input type="color" id="header-line-color" name="header-line-color" value="#000000">
+                    <label for="header-dropdown-color">Dropdown text color:</label>
+                    <input type="color" id="header-dropdown-color" name="header-dropdown-color" value="#000000">
+                    <label for="header-dropdown-bg">Dropdown bg color:</label>
+                    <input type="color" id="header-dropdown-bg" name="header-dropdown-bg" value="#FFFFFF">
                     <label for="avatar-bg-color">Avatar bg color:</label>
                     <input type="color" id="avatar-bg-color" name="avatar-bg-color" value="#FFFFFF">
                     <label for="reset-sidebar">Sidebar settings</label>
@@ -807,13 +841,23 @@ div.hl_login--body { color: ${colorPicker.value}; }
                                     <a href="#" class="topmenu-navitem active">
                                         <span>Calendars</span>
                                     </a>
-                                    <a href="#">
-                                        <span>Appointments</span>
-                                    </a>
+                                    <div class="menu-item-container"> <!-- Toevoegen container -->
+                                        <a href="#">
+                                            <span>Appointments</span>
+                                        </a>
+                                        <div class="menu-dropdown" role="menu">
+                                            <a href="#" role="menuitem">
+                                                <span class="menu-item">Appointments</span>
+                                            </a>
+                                            <a href="#" role="menuitem">
+                                                <span class="menu-item">Settings</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                     <a href="#">
                                         <span>Settings</span>
                                     </a>
-                                </div>
+                                </div>                                
                                 <div class="hl_header--controls">
                                     <a href="#"><i class="fa-solid fa-bullhorn"></i></a>
                                     <a href="#"><i class="fa-solid fa-bell"></i></a>
